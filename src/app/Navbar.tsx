@@ -4,6 +4,7 @@ import React from 'react';
 import Link from "next/link";
 import {BugIcon} from "@/lib/icons";
 import {usePathname} from "next/navigation";
+import ThemeSwitch from "@/app/Components/Theme-Switch";
 
 
 const navItems = [
@@ -18,11 +19,11 @@ const classNames = (...classes: string[]) => {
 const Navbar = () => {
     const pathname = usePathname();
     return (
-        <nav className="flex items-center justify-between px-8 h-16 shadow-md">
-            <Link href="/">
+        <nav className="flex items-center px-8 h-16 shadow-md">
+            <Link href="/" className="mr-4">
                 <BugIcon className={"w-6 h-6"}/>
             </Link>
-            <ul className="flex items-center gap-x-4">
+            <ul className="flex items-center gap-x-4 flex-grow">
                 {
                     navItems.map((item) => {
                         return <li key={item.id}
@@ -32,6 +33,7 @@ const Navbar = () => {
                     })
                 }
             </ul>
+            <ThemeSwitch/>
         </nav>
     );
 };

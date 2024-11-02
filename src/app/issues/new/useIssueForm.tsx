@@ -13,9 +13,9 @@ const useIssueForm = () => {
         register,
         reset,
         control,
-        formState: {errors}
+        formState: {errors, isSubmitting},
     } = useForm<FormFieldsType>({resolver: zodResolver(IssueSchema)});
-    return {handleSubmit, errors, control, reset, register};
+    return {handleSubmit, errors, control, reset, register, isSubmitting};
 }
 
 

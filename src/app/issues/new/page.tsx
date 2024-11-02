@@ -9,6 +9,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import {XCircleIcon} from "@/lib/icons";
+import ErrorMessage from "@/app/Components/ErrorMessage";
+import Spinner from "@/app/Components/Spinner";
 
 
 const classNames = (...classes: string[]) => {
@@ -16,7 +18,7 @@ const classNames = (...classes: string[]) => {
 };
 
 const NewIssuePage = () => {
-    const {control, handleSubmit, register, reset, errors} = useIssueForm();
+    const {control, handleSubmit, register, reset, errors, isSubmitting} = useIssueForm();
     const router = useRouter();
     const [error, setError] = useState("");
 
@@ -25,8 +27,8 @@ const NewIssuePage = () => {
             await axios.post("http://localhost:3000/api/issues", {...values})
             setError("");
             toast.success("Issue successfully added");
-            router.push("/issues");
             reset();
+            router.push("/issues");
         } catch (error) {
             console.log(error instanceof Error ? error.message : "Failed to add issue");
             setError(error instanceof Error ? error.message : "Failed to add issue");
@@ -71,11 +73,9 @@ const NewIssuePage = () => {
                                    "block w-full px-2 rounded-md border-0 py-1.5 pr-10 ring-1 ring-inset focus:outline-none  ring-gray-400  sm:text-sm sm:leading-6"
                                )}
                         />
-                        {errors.title && (
-                            <p id="title-error" className="mt-2 text-sm text-red-600">
-                                {errors.title.message}
-                            </p>
-                        )}
+                        <ErrorMessage>
+                            {errors.title?.message}
+                        </ErrorMessage>
                     </div>
                 </div>
 
@@ -85,14 +85,14 @@ const NewIssuePage = () => {
                                     <SimpleMDE
                                         className={classNames(errors.description! && "border border-red-500 focus:ring-inset focus:ring-red-500", "rounded-md")} {...field}
                                         placeholder={"Description..."}/>}/>
-                    {errors.description && <p className={"mt-2 text-sm text-red-600"}>{errors.description.message}</p>}
+                    <ErrorMessage>{errors.description?.message}</ErrorMessage>
                 </div>
 
-                <button
-                    type="submit"
-                    className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                <button disabled={isSubmitting}
+                        type="submit"
+                        className="flex items-center gap-x-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
-                    Submit New Issue
+                    Submit New Issue {isSubmitting && <Spinner/>}
                 </button>
 
             </form>
