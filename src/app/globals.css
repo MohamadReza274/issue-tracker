@@ -3,7 +3,37 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply dark:bg-slate-800 bg-gray-50;
-    }
+  body {
+    @apply dark:bg-slate-800 bg-gray-50;
+  }
+}
+
+/* SimpleMDE dark mode styling */
+.dark .editor-toolbar,
+.dark .CodeMirror {
+  background-color: var(
+    --gray-800
+  ) !important; /* Dark background for the editor */
+  color: #ffffff !important; /* Light text color */
+}
+
+.dark .CodeMirror-cursor {
+  border-left: 1px solid #ffffff !important; /* Light cursor */
+}
+
+.dark .CodeMirror-gutters {
+  background-color: #1a1a1a !important; /* Match the gutter background */
+  color: #4b5563 !important; /* Darker color for gutter text */
+}
+
+/* High specificity for toolbar button hover in dark mode */
+.dark .editor-toolbar button:hover,
+.dark .editor-toolbar a:hover {
+  background-color: transparent !important; /* Dark hover color */
+  color: #ffffff !important; /* Keep text visible */
+}
+
+.custom-borderless .CodeMirror,
+.custom-borderless .editor-toolbar {
+  border: none !important;
 }

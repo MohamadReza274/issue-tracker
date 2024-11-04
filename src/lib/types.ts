@@ -1,6 +1,9 @@
 
 export interface Issue {
+    id:number;
     title: string;
     description: string;
-    status: "OPEN" | "ON_PROGRESS" | "CLOSED";
+    status: "OPEN" | "IN_PROGRESS" | "CLOSED";
+    createdAt: Date;
+    updatedAt: Date;
 }
