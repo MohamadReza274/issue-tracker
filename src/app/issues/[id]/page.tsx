@@ -4,6 +4,7 @@ import {notFound} from "next/navigation";
 import {Issue} from "@prisma/client";
 import IssueStatusBadge from "@/app/Components/IssueStatusBadge";
 import {Status} from "@/lib/types";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
     params: { id: string };
@@ -29,10 +30,10 @@ const IssueDetailsPage = async ({params}: Props) => {
                 <IssueStatusBadge status={issue.status as Status}/>
                 <p>{issue.createdAt.toLocaleDateString()}</p>
             </div>
-            <div className="rounded-md shadow px-4 py-8">
-                <p>
+            <div className="rounded-md shadow px-4 py-8 prose dark:prose-invert">
+                <ReactMarkdown>
                     {issue?.description}
-                </p>
+                </ReactMarkdown>
             </div>
         </div>
     );

@@ -57,14 +57,13 @@ const IssuesPage = async ({searchParams}: Props) => {
                                 <tbody className="divide-y divide-gray-200">
                                 {issues?.map((issue) => (
                                     <tr key={issue.id}>
-                                        <td className="whitespace-nowrap py-4 pl-1 text-sm font-medium text-gray-900 dark:text-white">
-                                            <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                                        <td className="whitespace-nowrap py-4 text-sm font-medium text-gray-900 dark:text-white">
+                                            <Link href={`/issues/${issue.id}`} className="link">{issue.title}</Link>
                                         </td>
-                                        <td className="whitespace-nowrap pl-1 py-4 text-sm text-gray-500 dark:text-gray-300">{issue.description.slice(0, 15)}...</td>
-                                        <td className="whitespace-nowrap pl-1 py-4 text-sm text-gray-500 dark:text-gray-300">
+                                        <td className="whitespace-nowrap py-4 text-sm text-gray-500 dark:text-gray-300">
                                             <IssueStatusBadge status={issue.status}/>
                                         </td>
-                                        <td className="whitespace-nowrap pl-1 py-4 text-sm text-gray-500 dark:text-gray-300">{issue.createdAt.toLocaleDateString()}</td>
+                                        <td className="whitespace-nowrap py-4 text-sm text-gray-500 dark:text-gray-300">{issue.createdAt.toLocaleDateString()}</td>
                                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="#"
                                                className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 ">
