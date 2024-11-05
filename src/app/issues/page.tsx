@@ -1,27 +1,20 @@
 import React from 'react';
 import Link from "next/link";
-import prisma from "@/lib/db";
 import IssueStatusBadge from "@/app/Components/IssueStatusBadge";
-import {Issue} from "@/lib/types";
 import delay from "delay";
+import {tableHeaders} from "@/app/issues/IssueTableData";
+import prisma from "@/lib/db";
+import {Issue} from "@/lib/types";
 
-const tableHeaders = [
-    {id: 1, label: "Title", sortOrder: "title"},
-    {id: 2, label: "Description", sortOrder: "description"},
-    {id: 3, label: "Status", sortOrder: "status"},
-    {id: 4, label: "CreatedAt", sortOrder: "createdAt"},
-]
 
 interface Props {
     searchParams: { sortOrder: string }
 }
 
 const IssuesPage = async ({searchParams}: Props) => {
-
     const {sortOrder} = searchParams;
-
     const issues = await prisma.issue.findMany({orderBy: sortOrder ? {[sortOrder]: "asc"} : undefined}) as Issue[];
-    await delay(3000)
+    await delay(2000)
 
     if (issues.length === 0) {
         return <div className={"p-8 text-gray-300"}>
@@ -54,7 +47,7 @@ const IssuesPage = async ({searchParams}: Props) => {
                             <table className="min-w-full divide-y divide-gray-300">
                                 <thead>
                                 <tr>
-                                    {tableHeaders.map(header => (<th key={header.id} scope="col"
+                                    {tableHeaders?.map(header => (<th key={header.id} scope="col"
                                                                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
                                         <Link href={`/issues?sortOrder=${header.sortOrder}`}>{header.label}</Link>
                                     </th>))}
@@ -67,7 +60,7 @@ const IssuesPage = async ({searchParams}: Props) => {
                                 {issues?.map((issue) => (
                                     <tr key={issue.id}>
                                         <td className="whitespace-nowrap py-4 pl-1 text-sm font-medium text-gray-900 dark:text-white">
-                                            {issue.title}
+                                            <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
                                         </td>
                                         <td className="whitespace-nowrap pl-1 py-4 text-sm text-gray-500 dark:text-gray-300">{issue.description.slice(0, 15)}...</td>
                                         <td className="whitespace-nowrap pl-1 py-4 text-sm text-gray-500 dark:text-gray-300">
