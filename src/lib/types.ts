@@ -7,3 +7,5 @@ export interface Issue {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export type Status = "OPEN" | "IN_PROGRESS" | "CLOSED";

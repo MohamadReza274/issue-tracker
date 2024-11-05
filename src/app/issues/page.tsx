@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from "next/link";
 import IssueStatusBadge from "@/app/Components/IssueStatusBadge";
-import delay from "delay";
 import {tableHeaders} from "@/app/issues/IssueTableData";
 import prisma from "@/lib/db";
 import {Issue} from "@/lib/types";
@@ -14,7 +13,6 @@ interface Props {
 const IssuesPage = async ({searchParams}: Props) => {
     const {sortOrder} = searchParams;
     const issues = await prisma.issue.findMany({orderBy: sortOrder ? {[sortOrder]: "asc"} : undefined}) as Issue[];
-    await delay(2000)
 
     if (issues.length === 0) {
         return <div className={"p-8 text-gray-300"}>
@@ -48,7 +46,7 @@ const IssuesPage = async ({searchParams}: Props) => {
                                 <thead>
                                 <tr>
                                     {tableHeaders?.map(header => (<th key={header.id} scope="col"
-                                                                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
+                                                                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
                                         <Link href={`/issues?sortOrder=${header.sortOrder}`}>{header.label}</Link>
                                     </th>))}
                                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
