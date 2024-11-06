@@ -6,15 +6,17 @@ const classNames = (...classes: string[]) => {
 
 interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
     height?: string; // Allow custom height
+    width?: string;
 }
 
-const Skeleton = ({className = "", height = "h-8", ...props}: SkeletonProps) => {
+const Skeleton = ({className = "", height = "h-8", width = "w-full", ...props}: SkeletonProps) => {
     return (
-        <div className={classNames("animate-pulse flex space-x-4", className)} {...props}>
+        <div className={classNames("animate-pulse flex items-center space-x-4", className)} {...props}>
             <div
                 className={classNames(
-                    "bg-gray-300 dark:bg-slate-700 w-full rounded my-2",
-                    height // Set height dynamically
+                    "bg-gray-300 dark:bg-slate-700 rounded",
+                    height, // Set height dynamically
+                    width,
                 )}
             ></div>
         </div>

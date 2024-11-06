@@ -24,7 +24,7 @@ const IssueDetailsPage = async ({params}: Props) => {
     }
 
     return (
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-4">
             <h2 className="text-3xl">{issue?.title.charAt(0).toUpperCase() + issue?.title.slice(1)}</h2>
             <div className="flex items-center gap-x-2">
                 <IssueStatusBadge status={issue.status as Status}/>
