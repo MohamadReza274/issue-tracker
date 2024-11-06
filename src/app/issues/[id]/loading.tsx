@@ -1,5 +1,5 @@
 import React from 'react';
-import Skeleton from "@/app/Components/Skeleton";
+import {Skeleton} from "@/app/Components";
 
 const LoadingIssueDetailsPage = () => {
     return (

@@ -2,7 +2,7 @@ import React from 'react';
 import prisma from "@/lib/db";
 import {notFound} from "next/navigation";
 import {Issue} from "@prisma/client";
-import IssueStatusBadge from "@/app/Components/IssueStatusBadge";
+import {IssueStatusBadge} from "@/app/Components";
 import {Status} from "@/lib/types";
 import ReactMarkdown from "react-markdown";
 

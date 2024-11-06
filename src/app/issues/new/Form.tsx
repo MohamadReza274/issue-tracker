@@ -6,13 +6,12 @@ import {useRouter} from "next/navigation";
 import {Controller, SubmitHandler} from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
-import ErrorMessage from "@/app/Components/ErrorMessage";
-import Spinner from "@/app/Components/Spinner";
 import {Options} from "easymde";
 import {XCircleIcon} from "@/lib/icons";
 import {classNames} from "@/lib/constants";
 import "easymde/dist/easymde.min.css";
 import dynamic from "next/dynamic";
+import {ErrorMessage, Spinner} from "@/app/Components";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {ssr: false});
 

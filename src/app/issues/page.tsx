@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import IssueStatusBadge from "@/app/Components/IssueStatusBadge";
+import {IssueStatusBadge} from "@/app/Components";
 import {tableHeaders} from "@/app/issues/IssueTableData";
 import prisma from "@/lib/db";
 import {Issue} from "@/lib/types";

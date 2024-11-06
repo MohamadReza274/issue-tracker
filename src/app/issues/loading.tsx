@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from "next/link";
-import Skeleton from "@/app/Components/Skeleton";
+import {Skeleton} from "@/app/Components";
 
 const tableHeaders = [
-    1, 2, 3, 4
+    1, 2, 3, 4, 5
 ]
 
 const issueSkeleton = Array.from({length: 6}).map((_, i) => i);
@@ -44,7 +44,7 @@ const IssueLoadingPage = () => {
                                 <tbody className="divide-y divide-gray-200">
                                 {issueSkeleton?.map((s) => (
                                     <tr key={s}>
-                                        <Skeleton />
+                                        <Skeleton/>
                                     </tr>
                                 ))}
                                 </tbody>
