@@ -58,7 +58,7 @@ const IssuesPage = async ({searchParams}: Props) => {
                                 {issues?.map((issue) => (
                                     <tr key={issue.id}>
                                         <td className="whitespace-nowrap py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                            <Link href={`/issues/${issue.id}`} className="link">{issue.title}</Link>
+                                            <Link href={`/issues/${issue.id}`} className="link capitalize">{issue.title}</Link>
                                         </td>
                                         <td className="whitespace-nowrap py-4 text-sm text-gray-500 dark:text-gray-300">
                                             <IssueStatusBadge status={issue.status}/>

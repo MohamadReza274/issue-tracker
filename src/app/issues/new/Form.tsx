@@ -7,12 +7,14 @@ import {Controller, SubmitHandler} from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ErrorMessage from "@/app/Components/ErrorMessage";
-import SimpleMDE from "react-simplemde-editor";
 import Spinner from "@/app/Components/Spinner";
 import {Options} from "easymde";
 import {XCircleIcon} from "@/lib/icons";
 import {classNames} from "@/lib/constants";
+import "easymde/dist/easymde.min.css";
+import dynamic from "next/dynamic";
 
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {ssr: false});
 
 const options: Options = {
     toolbar: [
@@ -47,7 +49,6 @@ const Form = () => {
             setError(error instanceof Error ? error.message : "Failed to add issue");
         }
     };
-
     return (
         <>
             {error && (
