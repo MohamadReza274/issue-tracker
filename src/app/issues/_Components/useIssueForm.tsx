@@ -5,7 +5,7 @@ import IssueSchema from "@/app/api/issues/schema";
 import {z} from 'zod'
 
 
-export type FormFieldsType = z.infer<typeof IssueSchema>;
+export type IssueFormData = z.infer<typeof IssueSchema>;
 
 const useIssueForm = () => {
     const {
@@ -14,7 +14,7 @@ const useIssueForm = () => {
         reset,
         control,
         formState: {errors, isSubmitting},
-    } = useForm<FormFieldsType>({resolver: zodResolver(IssueSchema)});
+    } = useForm<IssueFormData>({resolver: zodResolver(IssueSchema)});
     return {handleSubmit, errors, control, reset, register, isSubmitting};
 }
 

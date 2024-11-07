@@ -3,7 +3,7 @@ import {Skeleton} from "@/app/Components";
 
 const LoadingIssueDetailsPage = () => {
     return (
-        <div className="flex flex-col gap-y-4 mt-4 max-w-lg">
+        <div className="flex flex-col gap-y-4 mt-8 max-w-lg">
             <Skeleton/>
             <div className="flex items-center gap-x-2">
                 <Skeleton width="w-24"/>

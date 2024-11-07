@@ -1,12 +1,12 @@
 import React from "react";
-import Form from "@/app/issues/new/Form";
+import IssueForm from "@/app/issues/_Components/IssueForm";
 
 
 const NewIssuePage = async () => {
 
     return (
         <div className="max-w-xl">
-            <Form/>
+            <IssueForm/>
         </div>
     );
 };

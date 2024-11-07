@@ -1,17 +1,17 @@
-"use client";
-
+"use client"
 import React, {useState} from 'react';
-import useIssueForm, {FormFieldsType} from "@/app/issues/new/useIssueForm";
-import {useRouter} from "next/navigation";
-import {Controller, SubmitHandler} from "react-hook-form";
-import axios from "axios";
-import toast from "react-hot-toast";
-import {Options} from "easymde";
 import {XCircleIcon} from "@/lib/icons";
 import {classNames} from "@/lib/constants";
-import "easymde/dist/easymde.min.css";
-import dynamic from "next/dynamic";
 import {ErrorMessage, Spinner} from "@/app/Components";
+import {Controller, SubmitHandler} from "react-hook-form";
+import useIssueForm, {IssueFormData} from "@/app/issues/_Components/useIssueForm";
+import {useRouter} from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
+import {Options} from "easymde";
+import "easymde/dist/easymde.min.css";
+import {Issue} from "@prisma/client";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {ssr: false});
 
@@ -28,17 +28,23 @@ const options: Options = {
     // toolbarTips:true
 }
 
-const Form = () => {
+const IssueForm = ({issue}: { issue?: Issue }) => {
+
     const {control, handleSubmit, register, reset, errors, isSubmitting} =
         useIssueForm();
     const router = useRouter();
     const [error, setError] = useState("");
 
-    const handleSubmitForm: SubmitHandler<FormFieldsType> = async (values) => {
+    const handleSubmitForm: SubmitHandler<IssueFormData> = async (values) => {
         try {
-            await axios.post("http://localhost:3000/api/issues", {...values});
+            if (issue) {
+                await axios.patch("http://localhost:3000/api/issues", {...values});
+                toast.success("Issue successfully updated");
+            } else {
+                await axios.post("http://localhost:3000/api/issues", {...values});
+                toast.success("Issue successfully added");
+            }
             setError("");
-            toast.success("Issue successfully added");
             reset();
             router.push("/issues");
         } catch (error) {
@@ -48,10 +54,11 @@ const Form = () => {
             setError(error instanceof Error ? error.message : "Failed to add issue");
         }
     };
+
     return (
         <>
             {error && (
-                <div className="border-l-4 border-yellow-400 bg-red-50 p-4">
+                <div className="border-l-4 border-red-400 bg-red-50 dark:bg-red-200 rounded p-4">
                     <div className="flex">
                         <div className="flex-shrink-0">
                             <XCircleIcon
@@ -76,7 +83,7 @@ const Form = () => {
                     <div className="relative mt-2 sm:col-span-2 sm:mt-0 rounded-md">
                         <input
                             {...register("title")}
-                            defaultValue=""
+                            defaultValue={issue?.title}
                             id={"title"}
                             type={"text"}
                             placeholder={"Title..."}
@@ -95,6 +102,7 @@ const Form = () => {
                 <div className="">
                     <Controller
                         name={"description"}
+                        defaultValue={issue?.description}
                         control={control}
                         render={({field}) => (
                             <SimpleMDE
@@ -124,4 +132,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default IssueForm;

@@ -2,9 +2,8 @@ import React from 'react';
 import prisma from "@/lib/db";
 import {notFound} from "next/navigation";
 import {Issue} from "@prisma/client";
-import {IssueStatusBadge} from "@/app/Components";
-import {Status} from "@/lib/types";
-import ReactMarkdown from "react-markdown";
+import EditIssueButton from "@/app/issues/[id]/EditIssueButton";
+import IssueDetails from "@/app/issues/[id]/IssueDetails";
 
 interface Props {
     params: { id: string };
@@ -12,28 +11,21 @@ interface Props {
 
 const IssueDetailsPage = async ({params}: Props) => {
     const id = parseInt(params.id, 10);
-
     if (!id) {
         notFound();
     }
     const issue = await prisma.issue.findUnique({where: {id}}) as Issue;
 
-
     if (!issue) {
         notFound();
     }
-
     return (
-        <div className="flex flex-col gap-y-4">
-            <h2 className="text-3xl">{issue?.title.charAt(0).toUpperCase() + issue?.title.slice(1)}</h2>
-            <div className="flex items-center gap-x-2">
-                <IssueStatusBadge status={issue.status as Status}/>
-                <p>{issue.createdAt.toLocaleDateString()}</p>
+        <div className="flex my-8">
+            <div className="flex flex-col gap-y-6 ">
+                <IssueDetails issue={issue}/>
             </div>
-            <div className="rounded-md shadow px-4 py-8 prose dark:prose-invert">
-                <ReactMarkdown>
-                    {issue?.description}
-                </ReactMarkdown>
+            <div>
+                <EditIssueButton issueId={issue.id}/>
             </div>
         </div>
     );
