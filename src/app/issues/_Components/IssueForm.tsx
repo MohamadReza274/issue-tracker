@@ -8,12 +8,10 @@ import useIssueForm, {IssueFormData} from "@/app/issues/_Components/useIssueForm
 import {useRouter} from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
-import dynamic from "next/dynamic";
 import {Options} from "easymde";
 import "easymde/dist/easymde.min.css";
 import {Issue} from "@prisma/client";
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {ssr: false});
+import SimpleMDE from "react-simplemde-editor";
 
 const options: Options = {
     toolbar: [
@@ -28,6 +26,8 @@ const options: Options = {
     // toolbarTips:true
 }
 
+// use this component with dynamic function in next.js for better user experience and server-side errors
+
 const IssueForm = ({issue}: { issue?: Issue }) => {
 
     const {control, handleSubmit, register, reset, errors, isSubmitting} =
@@ -38,7 +38,7 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
     const handleSubmitForm: SubmitHandler<IssueFormData> = async (values) => {
         try {
             if (issue) {
-                await axios.patch("http://localhost:3000/api/issues", {...values});
+                await axios.put(`http://localhost:3000/api/issues/${issue.id}`, {...values});
                 toast.success("Issue successfully updated");
             } else {
                 await axios.post("http://localhost:3000/api/issues", {...values});
@@ -47,10 +47,10 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
             setError("");
             reset();
             router.push("/issues");
+            // use this method for validate client side cache;
+            router.refresh();
         } catch (error) {
-            console.log(
-                error instanceof Error ? error.message : "Failed to add issue"
-            );
+            console.log(error instanceof Error ? error.message : "Failed to add issue");
             setError(error instanceof Error ? error.message : "Failed to add issue");
         }
     };
@@ -72,7 +72,7 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
                     </div>
                 </div>
             )}
-            <form className="space-y-2" onSubmit={handleSubmit(handleSubmitForm)}>
+            <form className="space-y-2 max-w-2xl" onSubmit={handleSubmit(handleSubmitForm)}>
                 <div className="mb-8">
                     <label
                         htmlFor="title"
@@ -125,7 +125,7 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
                     type="submit"
                     className="flex items-center gap-x-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-transparent dark:text-gray-100"
                 >
-                    Submit New Issue {isSubmitting && <Spinner/>}
+                    {issue ? "Update Issue" : "Submit New Issue"} {isSubmitting && <Spinner/>}
                 </button>
             </form>
         </>

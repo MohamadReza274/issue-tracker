@@ -1,28 +1,9 @@
 import React from 'react';
-import {Skeleton} from "@/app/Components";
+import IssueFormSkeleton from "@/app/issues/_Components/IssueFormSkeleton";
 
 const LoadingNewIssuePage = () => {
     return (
-        <div className="max-w-xl flex flex-col gap-y-4">
-            <Skeleton className=" mt-8"/>
-
-            <div className="mb-4 my-4">
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-                <Skeleton/>
-            </div>
-
-            <Skeleton width="w-32"/>
-        </div>
+        <IssueFormSkeleton/>
     );
 };
 

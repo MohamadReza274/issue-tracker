@@ -1,13 +1,17 @@
 import React from "react";
-import IssueForm from "@/app/issues/_Components/IssueForm";
+import dynamic from "next/dynamic";
+import IssueFormSkeleton from "@/app/issues/_Components/IssueFormSkeleton";
+
+const IssueForm = dynamic(
+    () => import("@/app/issues/_Components/IssueForm"),
+    {ssr: false, loading: () => <IssueFormSkeleton/>}
+);
 
 
 const NewIssuePage = async () => {
 
     return (
-        <div className="max-w-xl">
-            <IssueForm/>
-        </div>
+        <IssueForm/>
     );
 };
 

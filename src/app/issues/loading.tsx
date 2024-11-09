@@ -1,10 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 import {Skeleton} from "@/app/Components";
-
-const tableHeaders = [
-    1, 2, 3, 4, 5
-]
+import {tableHeaders} from "@/app/issues/IssuesTable";
 
 const issueSkeleton = Array.from({length: 6}).map((_, i) => i);
 
@@ -32,23 +29,18 @@ const IssueLoadingPage = () => {
                 <div className="mt-8 flow-root">
                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                            <table className="min-w-full divide-y divide-gray-300">
-                                <thead>
-                                <tr>
-                                    {tableHeaders.map(h => (<th key={h} scope="col"
-                                                                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
-                                        <Skeleton className={"w-full"}/>
-                                    </th>))}
-                                </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-200">
-                                {issueSkeleton?.map((s) => (
-                                    <tr key={s}>
-                                        <Skeleton/>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                            <div className="min-w-full divide-y divide-gray-300">
+                                <div className="grid grid-cols-3 gap-x-6 mb-2">
+                                    {tableHeaders.map(h => (<Skeleton key={h.id} rounded={"sm"} className={""}/>))}
+                                </div>
+                                <div className="divide-y divide-gray-200">
+                                    {issueSkeleton?.map((s) => (
+                                        <div key={s} className={"overflow-hidden"}>
+                                            <Skeleton rounded={"sm"} className={"w-full my-2"}/>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

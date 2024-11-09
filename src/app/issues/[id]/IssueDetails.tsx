@@ -12,8 +12,8 @@ const IssueDetails = ({issue}: { issue: Issue }) => {
                 <IssueStatusBadge status={issue.status as Status}/>
                 <p>{issue.createdAt.toLocaleDateString()}</p>
             </div>
-            <div className="rounded-md shadow px-4 py-8 prose dark:prose-invert">
-                <ReactMarkdown>
+            <div className="rounded-md shadow px-4 py-8 prose dark:prose-invert max-w-full w-full">
+                <ReactMarkdown className="w-full">
                     {issue?.description}
                 </ReactMarkdown>
             </div>

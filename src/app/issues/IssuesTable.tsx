@@ -1,9 +1,16 @@
 import React from 'react';
-import {tableHeaders} from "@/app/issues/IssueTableData";
 import Link from "next/link";
 import {IssueStatusBadge} from "@/app/Components";
 import {Issue} from "@prisma/client";
 import {Status} from "@/lib/types";
+
+
+export const tableHeaders: { id: number, label: string, sortOrder: string }[] = [
+    {id: 1, label: "Title", sortOrder: "title"},
+    {id: 2, label: "Status", sortOrder: "status"},
+    {id: 3, label: "CreatedAt", sortOrder: "createdAt"},
+]
+
 
 const IssuesTable = ({issues}:{issues:Issue[]}) => {
     return (
