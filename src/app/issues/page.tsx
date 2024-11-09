@@ -3,7 +3,6 @@ import prisma from "@/lib/db";
 import {Issue} from "@/lib/types";
 import IssuesTable from "@/app/issues/IssuesTable";
 import AddIssueButton from "@/app/issues/AddIssueButton";
-import delay from "delay";
 
 
 interface Props {
@@ -14,7 +13,6 @@ interface Props {
 const IssuesPage = async ({searchParams}: Props) => {
     const {sortOrder} = searchParams;
     const issues = await prisma.issue.findMany({orderBy: sortOrder ? {[sortOrder]: "asc"} : undefined}) as Issue[];
-    await delay(2000)
     if (issues.length === 0) {
         return <div className={"p-8 text-gray-300"}>
             <h2 className={"text-2xl"}>There is no issue</h2>

@@ -37,6 +37,7 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
 
     const handleSubmitForm: SubmitHandler<IssueFormData> = async (values) => {
         try {
+            reset();
             if (issue) {
                 await axios.put(`http://localhost:3000/api/issues/${issue.id}`, {...values});
                 toast.success("Issue successfully updated");
@@ -45,7 +46,6 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
                 toast.success("Issue successfully added");
             }
             setError("");
-            reset();
             router.push("/issues");
             // use this method for validate client side cache;
             router.refresh();
@@ -123,7 +123,7 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
                 <button
                     disabled={isSubmitting}
                     type="submit"
-                    className="flex items-center gap-x-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-transparent dark:text-gray-100"
+                    className="flex items-center gap-x-2 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-gray-100 shadow-sm dark:ring-1 dark:ring-inset dark:ring-indigo-500 dark:bg-transparent dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
                 >
                     {issue ? "Update Issue" : "Submit New Issue"} {isSubmitting && <Spinner/>}
                 </button>

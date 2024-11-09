@@ -5,6 +5,7 @@ import {Dialog, DialogBackdrop, DialogPanel, DialogTitle} from '@headlessui/reac
 import {ExclamationTriangleIcon, TrashIcon} from "@/lib/icons";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {Spinner} from "@/app/Components";
 
 interface Props {
     issueId: number;
@@ -14,26 +15,30 @@ const DeleteIssueButton = ({issueId}: Props) => {
     const [open, setOpen] = useState(false);
     const router = useRouter();
     const [error, setError] = useState({hasError: false, message: ""});
+    const [isDeleting, setDeleting] = useState(false)
 
     const handleDeleteIssue = async (issueId: number) => {
         try {
-            await axios.delete(`http://localhost:3000/api/issues/${issueId}`);
             setOpen(false);
+            setDeleting(true);
+            await axios.delete(`http://localhost:3000/api/issues/${issueId}`);
             router.push("/issues");
             router.refresh();
         } catch (e) {
             const message = e instanceof Error ? e.message : "Failed to delete issue";
             console.log(e);
             setOpen(false)
+            setDeleting(false);
             setError({hasError: true, message});
         }
     }
 
     return (
         <>
-            <button
-                className="flex gap-x-2 items-center justify-center bg-red-500 dark:bg-transparent dark:border dark:border-red-400 rounded-md px-4 py-2 text-white dark:text-red-400 dark:hover:text-red-500"
-                onClick={() => setOpen(true)}><TrashIcon className="w-4 h-4"/> Delete Issue
+            <button disabled={isDeleting}
+                    className="flex gap-x-2 items-center justify-center bg-red-500 dark:bg-transparent dark:border dark:border-red-400 rounded-md px-4 py-2 text-white dark:text-red-400 dark:hover:text-red-500"
+                    onClick={() => setOpen(true)}><TrashIcon className="w-4 h-4"/> Delete Issue {isDeleting &&
+                <Spinner/>}
             </button>
             <Dialog open={open} onClose={setOpen} className="relative z-10">
                 <DialogBackdrop
