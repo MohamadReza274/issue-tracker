@@ -26,7 +26,7 @@ const Skeleton = ({rounded = "none", className = "", height = "h-8", width = "w-
         <div className={classNames("animate-pulse flex items-center space-x-4", className)} {...props}>
             <div
                 className={classNames(
-                    "bg-gray-300 dark:bg-slate-700 w-full",
+                    "bg-gray-300 dark:bg-slate-700",
                     height, // Set height dynamically
                     width,
                     radiusMap[rounded]?.class

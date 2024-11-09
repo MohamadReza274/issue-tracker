@@ -30,13 +30,15 @@ const options: Options = {
 
 const IssueForm = ({issue}: { issue?: Issue }) => {
 
-    const {control, handleSubmit, register, reset, errors, isSubmitting} =
+    const {control, handleSubmit, register, reset, errors} =
         useIssueForm();
     const router = useRouter();
     const [error, setError] = useState("");
+    const [isSubmitting, setSubmitting] = useState(false);
 
     const handleSubmitForm: SubmitHandler<IssueFormData> = async (values) => {
         try {
+            setSubmitting(true);
             reset();
             if (issue) {
                 await axios.put(`http://localhost:3000/api/issues/${issue.id}`, {...values});
@@ -50,6 +52,7 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
             // use this method for validate client side cache;
             router.refresh();
         } catch (error) {
+            setSubmitting(false)
             console.log(error instanceof Error ? error.message : "Failed to add issue");
             setError(error instanceof Error ? error.message : "Failed to add issue");
         }
@@ -92,7 +95,7 @@ const IssueForm = ({issue}: { issue?: Issue }) => {
                             className={classNames(
                                 errors.title! &&
                                 ("text-red-900 ring-red-400 placeholder:text-red-300 focus:ring-1 focus:ring-inset focus:ring-red-500" as string),
-                                "block w-full px-2 rounded-md border-0 py-1.5 pr-10 ring-1 ring-inset focus:outline-none  ring-gray-400 dark:bg-transparent  sm:text-sm sm:leading-6"
+                                "block w-full px-2 rounded-md border-0 py-1.5 pr-10 ring-1 ring-inset focus:outline-none  ring-gray-300 dark:bg-transparent  sm:text-sm sm:leading-6"
                             )}
                         />
                         <ErrorMessage>{errors.title?.message}</ErrorMessage>
