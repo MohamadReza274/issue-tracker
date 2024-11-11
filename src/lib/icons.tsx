@@ -82,3 +82,12 @@ export const ExclamationIcon = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVG
               d="M7.002 11a1 1 0 1 1 2 0a1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z"></path>
     </svg>)
 }
+
+export const ArrowRightIcon = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
+             className="size-6" {...props}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+        </svg>
+    )
+}

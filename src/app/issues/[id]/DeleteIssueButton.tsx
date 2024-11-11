@@ -22,7 +22,7 @@ const DeleteIssueButton = ({issueId}: Props) => {
             setOpen(false);
             setDeleting(true);
             await axios.delete(`http://localhost:3000/api/issues/${issueId}`);
-            router.push("/issues");
+            router.replace("/issues");
             router.refresh();
         } catch (e) {
             const message = e instanceof Error ? e.message : "Failed to delete issue";
