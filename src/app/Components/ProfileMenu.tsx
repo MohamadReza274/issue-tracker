@@ -5,6 +5,7 @@ import {classNames} from "@/lib/constants";
 import Image from "next/image";
 import {User} from "next-auth";
 import Link from "next/link";
+import {SignOut} from "@/app/_actions";
 
 interface Props {
     user: User;
@@ -13,7 +14,6 @@ interface Props {
 const items = [
     {id: 1, label: "Your Profile", href: "/profile"},
     {id: 2, label: "Settings", href: "/settings"},
-    {id: 3, label: "Sign Out", href: "/api/auth/signout", class: "text-red-600 dark:text-red-500"},
 ]
 
 const ProfileMenu = ({user}: Props) => {
@@ -48,7 +48,6 @@ const ProfileMenu = ({user}: Props) => {
                                     href={item.href}
                                     className={classNames(
                                         focus ? "bg-gray-100" : "",
-                                        item.class ? item?.class : "",
                                         "block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:bg-gray-700",
                                     )}
                                 >
@@ -57,6 +56,12 @@ const ProfileMenu = ({user}: Props) => {
                             )}
                         </MenuItem>))
                     }
+                    <form action={SignOut}>
+                        <button type="submit"
+                                className={"flex px-4 py-2 text-sm w-full dark:hover:bg-gray-700 text-red-600 dark:text-red-500"}
+                        >Sign Out
+                        </button>
+                    </form>
                 </MenuItems>
             </Transition>
         </Menu>

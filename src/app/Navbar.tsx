@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from "next/link";
-import {ArrowRightIcon, BugIcon} from "@/lib/icons";
+import {BugIcon} from "@/lib/icons";
 import ThemeSwitch from "@/app/Components/Theme-Switch";
 import NavItems from "@/app/NavItems";
 import {auth} from "@/app/auth";
-import ProfileMenu from "@/app/ProfileMenu";
+import ProfileMenu from "@/app/Components/ProfileMenu";
 
 export type NavItemsType = { id: number, label: string, href: string }[];
 
@@ -26,8 +26,8 @@ const Navbar = async () => {
             <ThemeSwitch/>
 
             {session && session.user ? <ProfileMenu user={session.user}/> :
-                <Link href={"/login"} className="flex items-center gap-x-1 ml-2">Log
-                    In <ArrowRightIcon className="w-4 h-4 font-bold"/></Link>}
+                <Link href={"/login"} className="btn-primary">Log
+                    In</Link>}
 
         </nav>
     );
