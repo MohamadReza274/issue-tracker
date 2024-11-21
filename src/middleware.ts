@@ -35,8 +35,8 @@ export const config = {
          * - favicon.ico, sitemap.xml, robots.txt (metadata files)
          */
         // '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
-        // "/issues/new",
-        // "/issues/:id/edit"
+        "/issues/new",
+        "/issues/:id/edit",
     ],
 }
 
