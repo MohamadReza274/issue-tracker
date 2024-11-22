@@ -11,6 +11,7 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/16/solid";
 import { Issue, User } from "@prisma/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   issue: Issue;
@@ -32,11 +33,17 @@ const AssigneeSelectBox = ({ issue }: Props) => {
     return null;
   }
 
-  const handleChangeSelectedUser = (userId: string) => {
+  const handleChangeSelectedUser = async (userId: string) => {
     setUser(users?.find((user) => user.id === userId) || null);
-    axios.patch("/api/issues/" + issue.id, {
-      assignedToUserId: userId || null,
-    });
+    try {
+      await axios.patch("/api/issues/" + issue.id, {
+        assignedToUserId: userId || null,
+      });
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong"
+      );
+    }
   };
 
   return (
