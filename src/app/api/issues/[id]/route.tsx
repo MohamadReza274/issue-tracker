@@ -30,12 +30,17 @@ export const PATCH = async (request: NextRequest, { params }: Props) => {
   const { id } = await params;
   const { title, description, status, assignedToUserId } = await request.json();
 
-  const session = await auth();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized user" }, { status: 301 });
-  }
+  // const session = await auth();
+  // if (!session) {
+  //   return NextResponse.json({ error: "Unauthorized user" }, { status: 301 });
+  // }
 
-  const validation = PatchIssueSchema.safeParse({ title, description, status });
+  const validation = PatchIssueSchema.safeParse({
+    title,
+    description,
+    status,
+    assignedToUserId,
+  });
 
   if (assignedToUserId) {
     const user = await prisma.user.findUnique({
