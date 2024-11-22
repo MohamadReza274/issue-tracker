@@ -13,6 +13,7 @@ const useUsers = () => {
     queryKey: ["users"],
     queryFn: () =>
       axios.get("http://localhost:3000/api/users").then((res) => res.data),
+    staleTime: 60 * 1000, // 60s
   });
 
   return { users, isLoading, error };

@@ -1,8 +1,7 @@
-import React from "react";
+import AddIssueButton from "@/app/issues/AddIssueButton";
+import IssuesTable from "@/app/issues/IssuesTable";
 import prisma from "@/lib/db";
 import { Issue } from "@/lib/types";
-import IssuesTable from "@/app/issues/IssuesTable";
-import AddIssueButton from "@/app/issues/AddIssueButton";
 
 interface Props {
   searchParams: { sortOrder: string };
