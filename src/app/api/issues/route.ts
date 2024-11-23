@@ -1,9 +1,29 @@
 import { auth } from "@/app/auth";
 import prisma from "@/lib/db";
+import { Issue } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
-  const issues = await prisma.issue.findMany();
+interface Props {
+  searchParams: { sortOrder: string; status: string };
+}
+
+export const GET = async ({ searchParams }: Props) => {
+  let issues: Issue[] = [];
+  console.log(searchParams?.sortOrder);
+  if (searchParams?.sortOrder) {
+    const { sortOrder } = searchParams;
+    issues = await prisma.issue.findMany({
+      orderBy: { [sortOrder]: "asc" },
+    });
+  }
+  if (searchParams?.status) {
+    const { status } = searchParams;
+    issues = await prisma.issue.findMany({
+      where: { status: status },
+    });
+  }
+
+  issues = await prisma.issue.findMany();
 
   if (!issues) {
     return NextResponse.json({ error: "there is no issues" }, { status: 404 });

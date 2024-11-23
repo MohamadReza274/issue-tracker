@@ -1,17 +1,25 @@
 import AddIssueButton from "@/app/issues/AddIssueButton";
 import IssuesTable from "@/app/issues/IssuesTable";
+import { statuses } from "@/lib/constants";
 import prisma from "@/lib/db";
-import { Issue } from "@/lib/types";
+import { Status } from "@/lib/types";
 
 interface Props {
-  searchParams: { sortOrder: string };
+  searchParams: { sortOrder: string; status: Status };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
   const { sortOrder } = searchParams;
-  const issues = (await prisma.issue.findMany({
+
+  const status = statuses.includes(searchParams.status)
+    ? searchParams.status
+    : undefined;
+
+  const issues = await prisma.issue.findMany({
     orderBy: sortOrder ? { [sortOrder]: "asc" } : undefined,
-  })) as Issue[];
+    where: status ? { status } : undefined,
+  });
+
   if (issues.length === 0) {
     return (
       <div className={"p-8 text-gray-500"}>
@@ -19,7 +27,6 @@ const IssuesPage = async ({ searchParams }: Props) => {
       </div>
     );
   }
-
   return (
     <div>
       <div className="px-4 sm:px-6 lg:px-8 dark:text-white dark:bg-gray-800 rounded-lg p-4">

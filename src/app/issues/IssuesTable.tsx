@@ -50,7 +50,7 @@ const IssuesTable = ({ issues }: { issues: Issue[] }) => {
                 <IssueStatusBadge status={issue.status as Status} />
               </td>
               <td className="whitespace-nowrap py-4 text-sm text-gray-500 dark:text-gray-300">
-                {issue.createdAt.toLocaleDateString()}
+                {issue.createdAt.toString()}
               </td>
             </tr>
           ))}

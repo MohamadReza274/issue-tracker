@@ -1,5 +1,7 @@
+"use client";
 import { Status } from "@/lib/types";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { ChangeEvent } from "react";
 
 const statuses: { label: string; value?: Status }[] = [
   { label: "All" },
@@ -9,22 +11,34 @@ const statuses: { label: string; value?: Status }[] = [
 ];
 
 const IssueStatusFilter = () => {
+  const router = useRouter();
+
+  const handleChangeStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    const query = value ? `?status=${value}` : "";
+    router.push("/issues/" + query);
+  };
   return (
     <div>
       <label
         htmlFor="status"
-        className="block text-sm font-medium leading-6 text-gray-900"
+        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
       >
         Filter By Status
       </label>
       <select
         id="status"
         name="status"
+        onChange={handleChangeStatus}
         defaultValue={""}
-        className="mt-1 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-gray-600 sm:text-sm sm:leading-6"
+        className="mt-1 block w-full dark:bg-transparent dark:text-gray-200 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-gray-600 sm:text-sm sm:leading-6"
       >
         {statuses.map((status) => (
-          <option key={status.label} value={status.value || ""}>
+          <option
+            key={status.label}
+            value={status.value || ""}
+            className="dark:text-gray-200 dark:bg-transparent"
+          >
             {status.label}
           </option>
         ))}
