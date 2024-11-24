@@ -41,7 +41,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       setSubmitting(true);
       reset();
       if (issue) {
-        await axios.put(`http://localhost:3000/api/issues/${issue.id}`, {
+        await axios.patch(`http://localhost:3000/api/issues/${issue.id}`, {
           ...values,
         });
         toast.success("Issue successfully updated");

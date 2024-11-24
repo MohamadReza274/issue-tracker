@@ -1,5 +1,5 @@
 import AddIssueButton from "@/app/issues/AddIssueButton";
-import IssuesTable from "@/app/issues/IssuesTable";
+import IssuesTable, { tableHeaders } from "@/app/issues/IssuesTable";
 import { statuses } from "@/lib/constants";
 import prisma from "@/lib/db";
 import { Status } from "@/lib/types";
@@ -9,15 +9,19 @@ interface Props {
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
-  const { sortOrder } = searchParams;
-
   const status = statuses.includes(searchParams.status)
-    ? searchParams.status
+    ? { status: searchParams.status }
+    : undefined;
+
+  const sortOrder = tableHeaders
+    .map((header) => header.sortOrder)
+    .includes(searchParams.sortOrder)
+    ? { [searchParams.sortOrder]: "asc" }
     : undefined;
 
   const issues = await prisma.issue.findMany({
-    orderBy: sortOrder ? { [sortOrder]: "asc" } : undefined,
-    where: status ? { status } : undefined,
+    orderBy: sortOrder,
+    where: status,
   });
 
   if (issues.length === 0) {
