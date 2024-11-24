@@ -7,25 +7,14 @@ import IssueStatusFilter from "./_Components/IssueStatusFilter";
 import { ArrowUpIcon } from "@heroicons/react/16/solid";
 import { classNames } from "@/lib/constants";
 
-export const tableHeaders: {
-  id: number;
-  label: string;
+export interface IssueQuery {
+  status: Status;
   sortOrder: string;
-  class?: string;
-}[] = [
-  { id: 1, label: "Title", sortOrder: "title" },
-  { id: 2, label: "Status", sortOrder: "status" },
-  {
-    id: 3,
-    label: "CreatedAt",
-    sortOrder: "createdAt",
-    class: "hidden md:table-cell",
-  },
-];
-
+  page: string;
+}
 interface Props {
   issues: Issue[];
-  searchParams: { status: Status; sortOrder: string; page: string };
+  searchParams: IssueQuery;
 }
 
 const IssuesTable = ({ issues, searchParams }: Props) => {
@@ -85,5 +74,21 @@ const IssuesTable = ({ issues, searchParams }: Props) => {
     </>
   );
 };
+
+export const tableHeaders: {
+  id: number;
+  label: string;
+  sortOrder: string;
+  class?: string;
+}[] = [
+  { id: 1, label: "Title", sortOrder: "title" },
+  { id: 2, label: "Status", sortOrder: "status" },
+  {
+    id: 3,
+    label: "CreatedAt",
+    sortOrder: "createdAt",
+    class: "hidden md:table-cell",
+  },
+];
 
 export default IssuesTable;

@@ -1,15 +1,20 @@
 import AddIssueButton from "@/app/issues/AddIssueButton";
-import IssuesTable, { tableHeaders } from "@/app/issues/IssuesTable";
+import IssuesTable, {
+  IssueQuery,
+  tableHeaders,
+} from "@/app/issues/IssuesTable";
 import { statuses } from "@/lib/constants";
 import prisma from "@/lib/db";
-import { Status } from "@/lib/types";
 import Pagination from "../Components/Pagination";
+import { auth } from "../auth";
 
 interface Props {
-  searchParams: { sortOrder: string; status: Status; page: string };
+  searchParams: IssueQuery;
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
+  const session = await auth();
+
   const status = statuses.includes(searchParams.status)
     ? { status: searchParams.status }
     : undefined;
@@ -36,7 +41,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   if (issues.length === 0) {
     return (
-      <div className={"p-8 text-gray-500"}>
+      <div className={"p-8 text-gray-700 dark:text-gray-300"}>
         <h2 className={"text-2xl"}>There is no issue</h2>
       </div>
     );
@@ -54,10 +59,12 @@ const IssuesPage = async ({ searchParams }: Props) => {
               description, status and createdAt.
             </p>
           </div>
-          <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            {/*Add issue*/}
-            <AddIssueButton />
-          </div>
+          {session && (
+            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+              {/*Add issue*/}
+              <AddIssueButton />
+            </div>
+          )}
         </div>
         <div className="mt-8 flow-root">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

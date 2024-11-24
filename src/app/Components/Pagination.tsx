@@ -32,7 +32,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   return (
     <nav
       aria-label="Pagination"
-      className="flex items-center justify-between border-t border-gray-200 bg-white dark:bg-transparent px-4 py-3 sm:px-6"
+      className="flex items-center justify-between border-t border-gray-200 dark:bg-transparent py-3"
     >
       <div className="hidden sm:block">
         <p className="text-sm text-gray-700 dark:text-gray-200">
@@ -48,7 +48,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
           disabled={currentPage === 1}
           className="relative inline-flex disabled:cursor-not-allowed items-center rounded-md bg-white dark:bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
         >
-          <ChevronDoubleLeftIcon className="w-5 h-5" />
+          <ChevronDoubleLeftIcon className="w-4 h-4" />
         </button>
         {/* go to previus page */}
         <button
@@ -56,7 +56,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
           disabled={currentPage === 1}
           className="relative inline-flex disabled:cursor-not-allowed items-center rounded-md bg-white dark:bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
         >
-          <ChevronLeftIcon className="w-5 h-5" />
+          <ChevronLeftIcon className="w-4 h-4" />
         </button>
 
         {/* go to Next page */}
@@ -65,7 +65,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
           disabled={currentPage === pageCount}
           className="relative ml-3 disabled:cursor-not-allowed inline-flex items-center rounded-md bg-white dark:bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
         >
-          <ChevronRightIcon className="w-5 h-5" />
+          <ChevronRightIcon className="w-4 h-4" />
         </button>
         {/* go to last page */}
         <button
@@ -73,7 +73,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
           disabled={currentPage === pageCount}
           className="relative disabled:cursor-not-allowed inline-flex items-center rounded-md bg-white dark:bg-transparent px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
         >
-          <ChevronDoubleRightIcon className="w-5 h-5" />
+          <ChevronDoubleRightIcon className="w-4 h-4" />
         </button>
       </div>
     </nav>
