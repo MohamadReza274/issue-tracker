@@ -3,15 +3,21 @@ import IssuesTable, { tableHeaders } from "@/app/issues/IssuesTable";
 import { statuses } from "@/lib/constants";
 import prisma from "@/lib/db";
 import { Status } from "@/lib/types";
+import Pagination from "../Components/Pagination";
 
 interface Props {
-  searchParams: { sortOrder: string; status: Status };
+  searchParams: { sortOrder: string; status: Status; page: string };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
   const status = statuses.includes(searchParams.status)
     ? { status: searchParams.status }
     : undefined;
+
+  const page = parseInt(searchParams.page) || 1;
+  const pageSize = 5;
+
+  const where = status;
 
   const sortOrder = tableHeaders
     .map((header) => header.sortOrder)
@@ -21,8 +27,12 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   const issues = await prisma.issue.findMany({
     orderBy: sortOrder,
-    where: status,
+    where,
+    skip: (page - 1) * pageSize,
+    take: pageSize,
   });
+
+  const issueCount = await prisma.issue.count({ where });
 
   if (issues.length === 0) {
     return (
@@ -54,6 +64,11 @@ const IssuesPage = async ({ searchParams }: Props) => {
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
               {/*Issue Table*/}
               <IssuesTable searchParams={searchParams} issues={issues} />
+              <Pagination
+                pageSize={pageSize}
+                currentPage={page}
+                itemCount={issueCount}
+              />
             </div>
           </div>
         </div>

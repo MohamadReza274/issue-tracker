@@ -23,13 +23,12 @@ export const tableHeaders: {
   },
 ];
 
-const IssuesTable = ({
-  issues,
-  searchParams,
-}: {
+interface Props {
   issues: Issue[];
-  searchParams: { status: Status; sortOrder: string };
-}) => {
+  searchParams: { status: Status; sortOrder: string; page: string };
+}
+
+const IssuesTable = ({ issues, searchParams }: Props) => {
   return (
     <>
       <div className="grid gap-x-4 max-w-sm">
