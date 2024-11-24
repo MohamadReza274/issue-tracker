@@ -3,20 +3,6 @@ import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {
-  // let issues: Issue[] = [];
-  // if (searchParams?.sortOrder) {
-  //   const { sortOrder } = searchParams;
-  //   issues = await prisma.issue.findMany({
-  //     orderBy: { [sortOrder]: "asc" },
-  //   });
-  // }
-  // if (searchParams?.status) {
-  //   const { status } = searchParams;
-  //   issues = await prisma.issue.findMany({
-  //     where: { status: status },
-  //   });
-  // }
-
   const issues = await prisma.issue.findMany();
 
   if (!issues) {

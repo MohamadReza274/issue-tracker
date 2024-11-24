@@ -13,8 +13,6 @@ const LatestIssue = async () => {
     },
   });
 
-  console.log(lastestIssues);
-
   return (
     <>
       <h2 className="text-3xl mb-2">Latest Issues</h2>

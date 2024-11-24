@@ -7,6 +7,7 @@ import { statuses } from "@/lib/constants";
 import prisma from "@/lib/db";
 import Pagination from "../Components/Pagination";
 import { auth } from "../auth";
+import {Metadata} from "next";
 
 interface Props {
   searchParams: IssueQuery;
@@ -83,5 +84,11 @@ const IssuesPage = async ({ searchParams }: Props) => {
     </div>
   );
 };
+
+
+export const metadata:Metadata = {
+  title: "Issue Tracker - Issue List",
+  description:"View all issues"
+}
 
 export default IssuesPage;
