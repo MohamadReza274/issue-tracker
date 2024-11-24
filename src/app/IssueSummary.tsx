@@ -15,7 +15,7 @@ const IssueSummary = async ({ open, inProgress, closed }: Props) => {
   ];
 
   return (
-    <div className="flex gap-x-2">
+    <div className="flex gap-x-2 px-4">
       {issuesData.map((issueData) => (
         <div
           key={issueData.label}
