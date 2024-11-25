@@ -19,6 +19,9 @@ const IssueDetailsPage = async ({params}: Props) => {
         notFound();
     }
     const issue = (await prisma.issue.findUnique({where: {id}})) as Issue;
+    const users = await prisma.user.findMany();
+
+    const user = users.find(user => user.id === issue.assignedToUserId);
 
     if (!issue) {
         notFound();
@@ -30,7 +33,7 @@ const IssueDetailsPage = async ({params}: Props) => {
             </div>
             {session && session.user && (
                 <div className="flex flex-col gap-4 mt-4 md:mt-0 col-span-5 md:col-span-1">
-                    <AssigneeSelectBox issue={issue}/>
+                    <AssigneeSelectBox users={users} user={user} issue={issue}/>
                     <EditIssueButton issueId={issue.id}/>
                     <DeleteIssueButton issueId={issue.id}/>
                 </div>

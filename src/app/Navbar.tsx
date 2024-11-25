@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { BugIcon } from "@/lib/icons";
-import ThemeSwitch from "@/app/Components/Theme-Switch";
 import NavItems from "@/app/NavItems";
 import { auth } from "@/app/auth";
 import ProfileMenu from "@/app/Components/ProfileMenu";
+import {ThemeSwitch} from "@/app/Components";
 
 export type NavItemsType = { id: number; label: string; href: string }[];
 

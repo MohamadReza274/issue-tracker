@@ -84,7 +84,7 @@ const DeleteIssueButton = ({issueId}: Props) => {
                                 </button>
                                 <button
                                     type="button"
-                                    data-autofocus
+                                    data-autofocus={true}
                                     onClick={() => setOpen(false)}
                                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white dark:bg-transparent dark:text-gray-200 dark:hover:text-gray-300 transition-colors px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-400 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                 >
