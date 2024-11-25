@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/*": {
+      "includeFiles": [
+        "prisma/schema.prisma",
+        "prisma/dev.db"
+      ]
+    }
+  }
+}
